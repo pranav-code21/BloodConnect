@@ -1,0 +1,579 @@
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Emergency Blood Donor Finder</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <header>
+
+        <div class="logo">BloodConnect</div>
+
+        <nav>
+
+            <a href="#home">Home</a>
+
+            <a href="#find">Find Donor</a>
+
+            <a href="#dashboard">Dashboard</a>
+
+            <a href="#register">Become a Donor</a>
+
+            <a href="#request">Emergency Request</a>
+
+            <a href="#view-requests">View Requests</a>
+
+            <a href="#about">About</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- Hero Section -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Find a Blood Donor<br>
+                When You Need One
+            </h1>
+
+            <p>
+                Connecting blood donors with people in emergency situations.
+                Every donor can help save a life.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#find" class="btn primary">
+                    Find a Donor
+                </a>
+
+                <a href="#register" class="btn secondary">
+                    Become a Donor
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Find Donor -->
+
+    <section class="find-section" id="find">
+
+        <h2>Find a Blood Donor</h2>
+
+        <p class="section-text">
+            Select blood group and enter location to search for donors.
+        </p>
+
+
+        <div class="search-box">
+
+
+            <div class="input-group">
+
+                <label>Select Blood Group</label>
+
+
+                <div class="blood-group-buttons">
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('A+')"
+                    >
+                        A+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('A-')"
+                    >
+                        A−
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('B+')"
+                    >
+                        B+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('B-')"
+                    >
+                        B−
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('AB+')"
+                    >
+                        AB+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('AB-')"
+                    >
+                        AB−
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('O+')"
+                    >
+                        O+
+                    </button>
+
+                    <button
+                        type="button"
+                        class="blood-btn"
+                        onclick="selectBloodGroup('O-')"
+                    >
+                        O−
+                    </button>
+
+                </div>
+
+
+                <input
+                    type="hidden"
+                    id="bloodGroup"
+                >
+
+            </div>
+
+
+            <div class="input-group">
+
+                <label>Location</label>
+
+                <input
+                    type="text"
+                    id="location"
+                    placeholder="Enter city or area"
+                >
+
+            </div>
+
+
+            <button
+                class="btn primary"
+                onclick="findDonor()"
+            >
+                Search Donor
+            </button>
+
+        </div>
+
+
+        <div id="results"></div>
+
+    </section>
+
+
+
+    <!-- Dashboard -->
+
+    <section
+        class="dashboard-section"
+        id="dashboard"
+    >
+
+        <h2>Blood Donor Dashboard</h2>
+
+        <p class="section-text">
+            Overview of registered blood donors.
+        </p>
+
+
+        <!-- Blood Group Statistics -->
+
+        <div class="dashboard-container">
+
+            <div class="dashboard-card">
+
+                <h3>Donors by Blood Group</h3>
+
+                <div
+                    id="bloodGroupStats"
+                    class="blood-group-stats"
+                >
+
+                    <p>Loading statistics...</p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Location Statistics -->
+
+            <div class="dashboard-card">
+
+                <h3>Donors by Location</h3>
+
+                <div
+                    id="locationChart"
+                    class="location-chart"
+                >
+
+                    <p>Loading chart...</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Become a Donor -->
+
+    <section
+        class="register-section"
+        id="register"
+    >
+
+        <h2>Become a Blood Donor</h2>
+
+        <p class="section-text">
+            Register yourself and help someone in need.
+        </p>
+
+
+        <form
+            id="donorForm"
+            method="POST"
+            action="/register"
+        >
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Full Name"
+                required
+            >
+
+
+            <select
+                id="donorBlood"
+                name="blood_group"
+                required
+            >
+
+                <option value="">
+                    Select Blood Group
+                </option>
+
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="donorLocation"
+                name="location"
+                placeholder="Location"
+                required
+            >
+
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                placeholder="Phone Number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                required
+            >
+
+
+            <select
+                id="availability"
+                name="availability"
+                required
+            >
+
+                <option value="Available">
+                    Available
+                </option>
+
+                <option value="Not Available">
+                    Not Available
+                </option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="btn primary"
+            >
+                Register as Donor
+            </button>
+
+        </form>
+
+
+        <p id="registerMessage"></p>
+
+
+
+        <!-- Update Availability -->
+
+        <div class="availability-section">
+
+            <h3>Update Donor Availability</h3>
+
+
+            <input
+                type="tel"
+                id="updatePhone"
+                placeholder="Enter Registered Phone Number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+            >
+
+
+            <select id="updateAvailability">
+
+                <option value="Available">
+                    Available
+                </option>
+
+                <option value="Not Available">
+                    Not Available
+                </option>
+
+            </select>
+
+
+            <button
+                type="button"
+                class="btn primary"
+                onclick="updateAvailability()"
+            >
+                Update Status
+            </button>
+
+
+            <p id="availabilityMessage"></p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- Emergency Blood Request -->
+
+    <section
+        class="request-section"
+        id="request"
+    >
+
+        <h2>Emergency Blood Request</h2>
+
+        <p class="section-text">
+            Submit a request if blood is urgently required.
+        </p>
+
+
+        <form id="requestForm">
+
+            <input
+                type="text"
+                id="patientName"
+                placeholder="Patient Name"
+                required
+            >
+
+
+            <select
+                id="requestBlood"
+                required
+            >
+
+                <option value="">
+                    Select Blood Group
+                </option>
+
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+
+            </select>
+
+
+            <input
+                type="text"
+                id="requestLocation"
+                placeholder="Required Location"
+                required
+            >
+
+
+            <input
+                type="tel"
+                id="requestPhone"
+                placeholder="Contact Number"
+                pattern="[0-9]{10}"
+                maxlength="10"
+                required
+            >
+
+
+            <select
+                id="urgency"
+                required
+            >
+
+                <option value="">
+                    Select Urgency
+                </option>
+
+                <option>High</option>
+                <option>Medium</option>
+                <option>Low</option>
+
+            </select>
+
+
+            <button
+                type="submit"
+                class="btn primary"
+            >
+                Submit Blood Request
+            </button>
+
+        </form>
+
+
+        <p id="requestMessage"></p>
+
+    </section>
+
+
+
+    <!-- View Emergency Requests -->
+
+    <section
+        class="view-request-section"
+        id="view-requests"
+    >
+
+        <h2>Emergency Blood Requests</h2>
+
+        <p class="section-text">
+            View submitted emergency blood requests.
+        </p>
+
+
+        <button
+            class="btn primary"
+            onclick="viewEmergencyRequests()"
+        >
+            View Requests
+        </button>
+
+
+        <div id="requestResults"></div>
+
+    </section>
+
+
+
+    <!-- About -->
+
+    <section
+        class="about-section"
+        id="about"
+    >
+
+        <h2>About BloodConnect</h2>
+
+        <p>
+            BloodConnect is an emergency blood donor finder platform designed
+            to connect people who need blood with suitable donors in their area.
+            The goal is to make finding a blood donor faster and easier during
+            emergency situations.
+        </p>
+
+    </section>
+
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <p>
+            © 2026 BloodConnect | Emergency Blood Donor Finder
+        </p>
+
+    </footer>
+
+
+
+    <!-- Chart.js Library -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Main JavaScript -->
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
+
